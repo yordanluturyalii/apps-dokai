@@ -1,0 +1,28 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"organizeImports": {
+		"enabled": true
+	},
+	"formatter": {
+		"enabled": true,
+		"indentStyle": "tab",
+		"ignore": ["node_modules", ".expo"]
+	},
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"all": true,
+			"style": {
+				"useNamingConvention": "off",
+				"noDefaultExport": "off"
+			},
+			"suspicious": {
+				"noReactSpecificProps": "off"
+			}
+		}
+	},
+	"files": {
+		"ignoreUnknown": true,
+		"ignore": ["node_modules", ".expo"]
+	}
+}
