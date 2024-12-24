@@ -9,6 +9,7 @@ import { hideAsync, preventAutoHideAsync } from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import "./global.css";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 
