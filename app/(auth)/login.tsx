@@ -1,12 +1,12 @@
 import FormInput from "@/components/ui/FormInput";
 import ThemedButton from "@/components/ui/ThemedButton";
 import { Link } from "expo-router";
-import { Button, Image, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 export default function LoginScreen() {
 	return (
-		<View className="px-5 bg-white pt-11">
+		<>
 			<Image
 				source={require("@/assets/images/dokai-icon.svg")}
 				className="mx-auto"
@@ -39,6 +39,6 @@ export default function LoginScreen() {
 					<Text>Create an Account</Text>
 				</Link>
 			</Text>
-		</View>
+		</>
 	);
 }
