@@ -9,6 +9,8 @@ export default function FormInput({
 	placeholder,
 	className,
 	contentType,
+	onChange,
+	value
 }: {
 	label: string;
 	placeholder: string;
@@ -46,9 +48,15 @@ export default function FormInput({
 		| "newPassword"
 		| "oneTimeCode"
 		| undefined;
+	onChange?: (text: string) => void; 
+	value: any
 }) {
 	const [showPassword, setShowPassword] = useState(true);
 	const onTogglePassword = () => setShowPassword(!showPassword);
+
+	const handleChange = (text: string) => {
+		if (onChange) onChange(text)
+	}
 
 	return (
 		<View className={className}>
@@ -62,6 +70,7 @@ export default function FormInput({
 						textContentType={contentType}
 						style={{flex: 1}}
 						secureTextEntry={showPassword}
+						onChangeText={handleChange}
 					/>
 					<TouchableOpacity onPress={onTogglePassword}>
 						{showPassword ? (
@@ -75,6 +84,7 @@ export default function FormInput({
 				<TextInput
 					placeholder={placeholder}
 					textContentType={contentType}
+					onChangeText={handleChange}
 					className="px-4 py-3 rounded-3xl"
 					style={{ outline: "none", paddingRight: 8, borderStyle: "solid", borderColor: "#DDDD", borderRadius: 40, borderWidth: 1 }}
 				/>
