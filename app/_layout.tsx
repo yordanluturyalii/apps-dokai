@@ -19,7 +19,7 @@ preventAutoHideAsync();
 export default function RootLayout() {
 	const colorScheme = useColorScheme();
 	const [loaded] = useFonts({
-		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+		SpaceMono: require("../assets/fonts/Manrope-Regular.ttf"),
 	});
 
 	useEffect(() => {
@@ -36,6 +36,7 @@ export default function RootLayout() {
 		<ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
 			<Stack>
 				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+				<Stack.Screen name="(auth)" options={{headerShown: false}} />
 				<Stack.Screen name="+not-found" />
 			</Stack>
 			<StatusBar style="auto" />

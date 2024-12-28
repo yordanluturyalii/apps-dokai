@@ -39,6 +39,12 @@ export default function LoginScreen() {
 					<Text>Create an Account</Text>
 				</Link>
 			</Text>
+			<Text className="pt-5">
+				Forgot Password?
+				<Link href={"/forgot-password"}>
+					<Text className="text-blue-600">Click Here</Text>
+				</Link>
+			</Text>
 		</>
 	);
 }
