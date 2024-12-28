@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import EyeOff from "@/assets/images/icons/eye-off.svg"
+import Eye from "@/assets/images/icons/eye.svg"
+
 
 export default function FormInput({
 	label,
@@ -52,20 +55,19 @@ export default function FormInput({
 			<Text className="pb-1">{label}</Text>
 			{contentType === "password" || contentType === "newPassword" ? (
 				<View
-					className="grid grid-flow-col px-4 py-3 rounded-3xl"
-					style={{ gridTemplateColumns: "1fr auto" }}
+					style={{ flexDirection: "row", alignItems: "center", borderWidth: 1, borderColor: "#DDD", borderRadius: 25, paddingHorizontal: 10, justifyContent: "space-between" }}
 				>
 					<TextInput
 						placeholder={placeholder}
 						textContentType={contentType}
-						style={{ outline: "none", paddingRight: 8 }}
+						style={{flex: 1}}
 						secureTextEntry={showPassword}
 					/>
 					<TouchableOpacity onPress={onTogglePassword}>
 						{showPassword ? (
-							<Image source={require("@/assets/images/icons/eye-off.svg")} />
+							<EyeOff width={20} height={20} />
 						) : (
-							<Image source={require("@/assets/images/icons/eye.svg")} />
+							<Eye width={20} height={20} />
 						)}
 					</TouchableOpacity>
 				</View>
@@ -74,6 +76,7 @@ export default function FormInput({
 					placeholder={placeholder}
 					textContentType={contentType}
 					className="px-4 py-3 rounded-3xl"
+					style={{ outline: "none", paddingRight: 8, borderStyle: "solid", borderColor: "#DDDD", borderRadius: 40, borderWidth: 1 }}
 				/>
 			)}
 		</View>
