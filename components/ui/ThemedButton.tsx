@@ -8,14 +8,14 @@ export default function ThemedButton({ title, disabled, isLoading, onPress }: { 
 		  style={{
 			backgroundColor: disabled || isLoading ? '#DDDDDD' : '#1738DC',
 			padding: 10,
-			borderRadius: 5,
+			borderRadius: 40,
 			alignItems: 'center',
 		  }}
 		>
 		  {isLoading ? (
-			<ActivityIndicator size="small" color="#FFFFFF" /> 
+			<ActivityIndicator size="large" color="#FFFFFF" /> 
 		  ) : (
-			<Text style={{ color: '#FFFFFF' }}>{title}</Text>
+			<Text style={{ color: '#FFFFFF', fontSize: 14, fontWeight: "semibold" }}>{title}</Text>
 		  )}
 		</TouchableOpacity>
 	  )
