@@ -60,15 +60,15 @@ export default function FormInput({
 
 	return (
 		<View className={className}>
-			<Text className="pb-1">{label}</Text>
+			<Text className="pb-1 font-semibold text-xs">{label}</Text>
 			{contentType === "password" || contentType === "newPassword" ? (
 				<View
-					style={{ flexDirection: "row", alignItems: "center", borderWidth: 1, borderColor: "#DDD", borderRadius: 25, paddingHorizontal: 10, justifyContent: "space-between" }}
+					style={{ flexDirection: "row", alignItems: "center", borderWidth: 1, borderColor: "#DDD", borderRadius: 25, paddingHorizontal: 10, justifyContent: "space-between", backgroundColor: "#ffff" }}
 				>
 					<TextInput
 						placeholder={placeholder}
 						textContentType={contentType}
-						style={{flex: 1}}
+						style={{flex: 1, fontSize: 12}}
 						secureTextEntry={showPassword}
 						onChangeText={handleChange}
 					/>
@@ -86,7 +86,7 @@ export default function FormInput({
 					textContentType={contentType}
 					onChangeText={handleChange}
 					className="px-4 py-3 rounded-3xl"
-					style={{ outline: "none", paddingRight: 8, borderStyle: "solid", borderColor: "#DDDD", borderRadius: 40, borderWidth: 1 }}
+					style={{ outline: "none", paddingRight: 8, borderStyle: "solid", borderColor: "#DDDD", borderRadius: 40, borderWidth: 1, backgroundColor: "#ffff", fontSize: 12 }}
 				/>
 			)}
 		</View>
