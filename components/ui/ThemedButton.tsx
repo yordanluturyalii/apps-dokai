@@ -18,6 +18,5 @@ export default function ThemedButton({ title, disabled, isLoading, onPress }: { 
 			<Text style={{ color: '#FFFFFF' }}>{title}</Text>
 		  )}
 		</TouchableOpacity>
-	  )
-	
+	  )	
 }
