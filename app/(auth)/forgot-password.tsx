@@ -16,13 +16,13 @@ type FormData = {
     email: string
 }
 
-const ForgotPasswordPage = () => {
+const ForgotPasswordScreen = () => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const {
         control,
         handleSubmit,
-        formState: { errors, isValid }
+        formState: { isValid }
     } = useForm<FormData>({
         resolver: zodResolver(schema),
         mode: 'onChange'
@@ -46,7 +46,7 @@ const ForgotPasswordPage = () => {
                 onPress={() => router.back()}
             >
                 <ArrowLeft width={20} height={20} />
-                <Text className='text-base text-[#1738DC] font-semibold'>Back</Text>
+                <Text className='text-sm text-[#1738DC] font-semibold'>Back</Text>
             </TouchableOpacity>
             <Text className='text-2xl font-semibold text-[#111111] mt-7'>
                 Enter your email and we'll send
@@ -67,8 +67,8 @@ const ForgotPasswordPage = () => {
                 )}
             />
 
-            <ThemedButton 
-                title='Send link to email' 
+            <ThemedButton
+                title='Send link to email'
                 disabled={!isValid || isLoading}
                 isLoading={isLoading}
                 onPress={handleSubmit(onSubmit)}
@@ -78,4 +78,4 @@ const ForgotPasswordPage = () => {
 }
 
 
-export default ForgotPasswordPage
+export default ForgotPasswordScreen
