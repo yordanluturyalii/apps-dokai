@@ -1,10 +1,38 @@
 import FormInput from "@/components/ui/FormInput";
 import ThemedButton from "@/components/ui/ThemedButton";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Link } from "expo-router";
+import { useEffect, useState } from "react";
 import { Image, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native";
 
 export default function LoginScreen() {
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		GoogleSignin.configure({
+			scopes: ["profile", "email"],
+		});
+	}, []);
+
+	const signIn = async () => {
+		try {
+			await GoogleSignin.hasPlayServices();
+			const { idToken } = await GoogleSignin.signIn();
+			const response = await fetch("https://example.com", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ idToken }),
+			});
+			const data = await response.json();
+			setUser(data);
+		} catch (error) {
+			console.error(error);
+		}
+	};
+
 	return (
 		<>
 			<Image
@@ -13,7 +41,10 @@ export default function LoginScreen() {
 			/>
 			<Text className="pb-2 text-center pt-11">Welcome Back</Text>
 			<Text className="text-center">Simplify health solutions with Evia.</Text>
-			<TouchableOpacity className="grid justify-center grid-flow-col py-3 pb-5 gap-x-2 rounded-3xl pt-11">
+			<TouchableOpacity
+				className="grid justify-center grid-flow-col py-3 pb-5 gap-x-2 rounded-3xl pt-11"
+				onPress={signIn}
+			>
 				<Image source={require("@/assets/images/google-icon.svg")} />
 				<Text>Login with Google</Text>
 			</TouchableOpacity>
