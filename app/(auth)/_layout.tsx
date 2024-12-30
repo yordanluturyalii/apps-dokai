@@ -1,10 +1,14 @@
 import { Slot } from "expo-router";
-import { View } from "react-native";
+import { SafeAreaView, ScrollView, View } from "react-native";
 
 export default function AuthLayout() {
 	return (
-		<View className="px-5 bg-white py-11">
-			<Slot />
-		</View>
+		<SafeAreaView className="px-5 bg-[#FAFAFA] py-11 h-full">
+			<ScrollView>
+				<View>
+					<Slot />
+				</View>
+			</ScrollView>
+		</SafeAreaView>
 	);
 }

@@ -1,11 +1,16 @@
-import { useState } from "react";
-import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
+import EyeOff from "@/assets/images/icons/eye-off.svg"
+import Eye from "@/assets/images/icons/eye.svg"
+import EyeOff from "@/assets/images/icons/eye-off.svg"
+import Eye from "@/assets/images/icons/eye.svg"ty, View } from "react-native";
+
 
 export default function FormInput({
 	label,
 	placeholder,
 	className,
 	contentType,
+	onChange,
+	value
 }: {
 	label: string;
 	placeholder: string;
@@ -43,29 +48,35 @@ export default function FormInput({
 		| "newPassword"
 		| "oneTimeCode"
 		| undefined;
+	onChange?: (text: string) => void;
+	value: any
 }) {
 	const [showPassword, setShowPassword] = useState(true);
 	const onTogglePassword = () => setShowPassword(!showPassword);
 
+	const handleChange = (text: string) => {
+		if (onChange) onChange(text)
+	}
+
 	return (
 		<View className={className}>
-			<Text className="pb-1">{label}</Text>
+			<Text className="pb-1 text-xs font-semibold">{label}</Text>
 			{contentType === "password" || contentType === "newPassword" ? (
 				<View
-					className="grid grid-flow-col px-4 py-3 rounded-3xl"
-					style={{ gridTemplateColumns: "1fr auto" }}
+					style={{ flexDirection: "row", alignItems: "center", borderWidth: 1, borderColor: "#DDD", borderRadius: 25, paddingHorizontal: 10, justifyContent: "space-between", backgroundColor: "#ffff" }}
 				>
 					<TextInput
 						placeholder={placeholder}
 						textContentType={contentType}
-						style={{ outline: "none", paddingRight: 8 }}
+						style={{flex: 1, fontSize: 12}}
 						secureTextEntry={showPassword}
+						onChangeText={handleChange}
 					/>
 					<TouchableOpacity onPress={onTogglePassword}>
 						{showPassword ? (
-							<Image source={require("@/assets/images/icons/eye-off.svg")} />
+							<EyeOff width={20} height={20} />
 						) : (
-							<Image source={require("@/assets/images/icons/eye.svg")} />
+							<Eye width={20} height={20} />
 						)}
 					</TouchableOpacity>
 				</View>
@@ -73,7 +84,9 @@ export default function FormInput({
 				<TextInput
 					placeholder={placeholder}
 					textContentType={contentType}
+					onChangeText={handleChange}
 					className="px-4 py-3 rounded-3xl"
+					style={{ outline: "none", paddingRight: 8, borderStyle: "solid", borderColor: "#DDDD", borderRadius: 40, borderWidth: 1, backgroundColor: "#ffff", fontSize: 12 }}
 				/>
 			)}
 		</View>
