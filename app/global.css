@@ -1,3 +1,166 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.display-100 {
+  font-size: 4rem;
+}
+
+.display-90 {
+  font-size: 4rem;
+}
+
+.display-80 {
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.display-70 {
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.display-60 {
+  font-size: 4rem;
+  font-weight: 500;
+}
+
+.title-50 {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.title-40 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.title-30 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.title-20 {
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.title-10 {
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.link-50 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.link-40 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.link-30 {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.link-20 {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.link-10 {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.subtitle-50 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.subtitle-40 {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.subtitle-30 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.subtitle-20 {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.subtitle-10 {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.body-50 {
+  font-size: 1.25rem;
+}
+
+.body-40 {
+  font-size: 1.125rem;
+}
+
+.body-30 {
+  font-size: 1rem;
+}
+
+.body-20 {
+  font-size: 0.875rem;
+}
+
+.body-10 {
+  font-size: 0.75rem;
+}
+
+.caption-50 {
+  font-size: 1.25rem;
+  font-weight: 300;
+}
+
+.caption-40 {
+  font-size: 1.125rem;
+  font-weight: 300;
+}
+
+.caption-30 {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.caption-20 {
+  font-size: 0.875rem;
+  font-weight: 300;
+}
+
+.caption-10 {
+  font-size: 0.75rem;
+  font-weight: 300;
+}
+
+.quote-50 {
+  font-size: 1.25rem;
+}
+
+.quote-40 {
+  font-size: 1.125rem;
+}
+
+.quote-30 {
+  font-size: 1rem;
+}
+
+.quote-20 {
+  font-size: 0.875rem;
+}
+
+.quote-10 {
+  font-size: 0.75rem;
+}
