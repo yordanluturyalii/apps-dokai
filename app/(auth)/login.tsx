@@ -8,11 +8,11 @@ import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Text, TouchableOpacity, View } from "react-native";
-import z from "zod";
+import { object, string } from "zod";
 
-const schema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
+const schema = object({
+	email: string().email(),
+	password: string().min(8),
 });
 
 type FormData = {
@@ -31,7 +31,7 @@ export default function LoginScreen() {
 		mode: "onChange",
 	});
 
-	const onSubmit = (data: any) => {
+	const onSubmit = (data: FormData) => {
 		try {
 			setIsLoading(true);
 			setTimeout(() => {

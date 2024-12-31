@@ -22,7 +22,7 @@ export default function NewPasswordScreen() {
 			{AccountRequiredText.map((text) => (
 				<RequiredText key={text} title={text} />
 			))}
-			<ThemedButton title="Confirm" />
+			<ThemedButton title="Confirm" isLoading={false} />
 		</View>
 	);
 }

@@ -1,8 +1,7 @@
-import EyeOff from "@/assets/images/icons/eye-off.svg"
-import Eye from "@/assets/images/icons/eye.svg"
-import EyeOff from "@/assets/images/icons/eye-off.svg"
-import Eye from "@/assets/images/icons/eye.svg"ty, View } from "react-native";
-
+import EyeOff from "@/assets/images/icons/eye-off.svg";
+import Eye from "@/assets/images/icons/eye.svg";
+import { useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
 
 export default function FormInput({
 	label,
@@ -10,7 +9,7 @@ export default function FormInput({
 	className,
 	contentType,
 	onChange,
-	value
+	value,
 }: {
 	label: string;
 	placeholder: string;
@@ -49,28 +48,38 @@ export default function FormInput({
 		| "oneTimeCode"
 		| undefined;
 	onChange?: (text: string) => void;
-	value: any
+	value?: string;
 }) {
 	const [showPassword, setShowPassword] = useState(true);
 	const onTogglePassword = () => setShowPassword(!showPassword);
 
 	const handleChange = (text: string) => {
-		if (onChange) onChange(text)
-	}
+		if (onChange) onChange(text);
+	};
 
 	return (
 		<View className={className}>
 			<Text className="pb-1 text-xs font-semibold">{label}</Text>
 			{contentType === "password" || contentType === "newPassword" ? (
 				<View
-					style={{ flexDirection: "row", alignItems: "center", borderWidth: 1, borderColor: "#DDD", borderRadius: 25, paddingHorizontal: 10, justifyContent: "space-between", backgroundColor: "#ffff" }}
+					style={{
+						flexDirection: "row",
+						alignItems: "center",
+						borderWidth: 1,
+						borderColor: "#DDD",
+						borderRadius: 25,
+						paddingHorizontal: 10,
+						justifyContent: "space-between",
+						backgroundColor: "#ffff",
+					}}
 				>
 					<TextInput
 						placeholder={placeholder}
 						textContentType={contentType}
-						style={{flex: 1, fontSize: 12}}
+						style={{ flex: 1, fontSize: 12 }}
 						secureTextEntry={showPassword}
 						onChangeText={handleChange}
+						value={value}
 					/>
 					<TouchableOpacity onPress={onTogglePassword}>
 						{showPassword ? (
@@ -86,7 +95,16 @@ export default function FormInput({
 					textContentType={contentType}
 					onChangeText={handleChange}
 					className="px-4 py-3 rounded-3xl"
-					style={{ outline: "none", paddingRight: 8, borderStyle: "solid", borderColor: "#DDDD", borderRadius: 40, borderWidth: 1, backgroundColor: "#ffff", fontSize: 12 }}
+					style={{
+						outline: "none",
+						paddingRight: 8,
+						borderStyle: "solid",
+						borderColor: "#DDDD",
+						borderRadius: 40,
+						borderWidth: 1,
+						backgroundColor: "#ffff",
+						fontSize: 12,
+					}}
 				/>
 			)}
 		</View>
