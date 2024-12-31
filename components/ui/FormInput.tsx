@@ -54,7 +54,9 @@ export default function FormInput({
 	const onTogglePassword = () => setShowPassword(!showPassword);
 
 	const handleChange = (text: string) => {
-		if (onChange) onChange(text);
+		if (onChange) {
+			onChange(text);
+		}
 	};
 
 	return (
