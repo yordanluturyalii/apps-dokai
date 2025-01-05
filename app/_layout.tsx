@@ -11,7 +11,7 @@ preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded] = useFonts({
-		// SpaceMono: require("../assets/fonts/Manrope-Regular.ttf"),
+		SpaceMono: require("../assets/fonts/Manrope.ttf"),
 	});
 
 	useEffect(() => {
