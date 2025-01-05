@@ -1,4 +1,5 @@
 import ArrowLeft from "@/assets/images/icons/arrow-left.svg";
+import HeaderBack from "@/components/HeaderBack";
 import FormInput from "@/components/ui/FormInput";
 import RequiredText from "@/components/ui/RequiredText";
 import ThemedButton from "@/components/ui/ThemedButton";
@@ -66,13 +67,7 @@ export default function RegisterScreen() {
 
 	return (
 		<View>
-			<TouchableOpacity
-				className="flex flex-row items-center mt-11 gap-x-2"
-				onPress={() => router.back()}
-			>
-				<ArrowLeft width={20} height={20} />
-				<Text className="text-sm text-[#1738DC] font-semibold">Back</Text>
-			</TouchableOpacity>
+			<HeaderBack />
 			<Text className="mt-6 text-xl font-semibold mb-11">
 				Create an Evia account.
 			</Text>
