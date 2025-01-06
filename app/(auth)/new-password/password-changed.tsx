@@ -1,4 +1,4 @@
-import ThemedButton from "@/components/ui/ThemedButton";
+import ThemedButton from "@/components/ThemedButton";
 import { Image, Text, View } from "react-native";
 
 export default function PasswordChangeScreen() {
@@ -11,7 +11,7 @@ export default function PasswordChangeScreen() {
 			<Text>
 				Your password has been successfully changed. Please login to use Evia.
 			</Text>
-			<ThemedButton title="Login" className="pt-11" />
+			<ThemedButton className="pt-11">Login</ThemedButton>
 		</View>
 	);
 }

@@ -1,8 +1,8 @@
 import ArrowLeft from "@/assets/images/icons/arrow-left.svg";
+import FormInput from "@/components/FormInput";
 import HeaderBack from "@/components/HeaderBack";
-import FormInput from "@/components/ui/FormInput";
-import RequiredText from "@/components/ui/RequiredText";
-import ThemedButton from "@/components/ui/ThemedButton";
+import RequiredText from "@/components/RequiredText";
+import ThemedButton from "@/components/ThemedButton";
 import { AccountRequiredText } from "@/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
@@ -124,11 +124,12 @@ export default function RegisterScreen() {
 			</View>
 
 			<ThemedButton
-				title="Create an Account"
 				disabled={!isValid || isLoading}
 				isLoading={isLoading}
 				onPress={handleSubmit(onSubmit)}
-			/>
+			>
+				Create an Account
+			</ThemedButton>
 		</View>
 	);
 }

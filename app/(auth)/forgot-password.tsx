@@ -1,7 +1,7 @@
 import ArrowLeft from "@/assets/images/icons/arrow-left.svg";
+import FormInput from "@/components/FormInput";
 import HeaderBack from "@/components/HeaderBack";
-import FormInput from "@/components/ui/FormInput";
-import ThemedButton from "@/components/ui/ThemedButton";
+import ThemedButton from "@/components/ThemedButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -60,11 +60,12 @@ const ForgotPasswordScreen = () => {
 			/>
 
 			<ThemedButton
-				title="Send link to email"
 				disabled={!isValid || isLoading}
 				isLoading={isLoading}
 				onPress={handleSubmit(onSubmit)}
-			/>
+			>
+				Send link to email
+			</ThemedButton>
 		</>
 	);
 };

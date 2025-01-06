@@ -1,6 +1,6 @@
-import FormInput from "@/components/ui/FormInput";
-import RequiredText from "@/components/ui/RequiredText";
-import ThemedButton from "@/components/ui/ThemedButton";
+import FormInput from "@/components/FormInput";
+import RequiredText from "@/components/RequiredText";
+import ThemedButton from "@/components/ThemedButton";
 import { AccountRequiredText } from "@/constants";
 import { Text, View } from "react-native";
 
@@ -22,7 +22,7 @@ export default function NewPasswordScreen() {
 			{AccountRequiredText.map((text) => (
 				<RequiredText key={text} title={text} />
 			))}
-			<ThemedButton title="Confirm" isLoading={false} />
+			<ThemedButton isLoading={false}>Confirm</ThemedButton>
 		</View>
 	);
 }

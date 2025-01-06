@@ -1,7 +1,7 @@
 import EviaIcon from "@/assets/images/dokai-icon.svg";
 import GoogleIcon from "@/assets/images/google-icon.svg";
-import FormInput from "@/components/ui/FormInput";
-import ThemedButton from "@/components/ui/ThemedButton";
+import FormInput from "@/components/FormInput";
+import ThemedButton from "@/components/ThemedButton";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Link } from "expo-router";
@@ -120,11 +120,12 @@ export default function LoginScreen() {
 				</Link>
 			</View>
 			<ThemedButton
-				title="Login"
 				disabled={!isValid || isLoading}
 				isLoading={isLoading}
 				onPress={handleSubmit(onSubmit)}
-			/>
+			>
+				Login
+			</ThemedButton>
 			<Text className="pt-5 text-[#777777] text-sm text-center">
 				Don't have an account?{" "}
 				<Link href="/register">
