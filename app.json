@@ -42,6 +42,12 @@
 					"resizeMode": "contain",
 					"backgroundColor": "#ffffff"
 				}
+			],
+			[
+				"expo-camera",
+				{
+					"cameraPermission": "Allow Evia Apps to access your camera"
+				}
 			]
 		],
 		"experiments": {

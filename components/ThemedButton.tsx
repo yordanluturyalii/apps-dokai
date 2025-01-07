@@ -6,11 +6,13 @@ export default function ThemedButton({
 	disabled,
 	isLoading,
 	onPress,
+	type,
 }: {
 	children?: ReactNode;
 	disabled?: boolean;
 	isLoading?: boolean;
 	onPress?: (data: any) => void;
+	type?: "primary" | "secondary";
 }) {
 	return (
 		<TouchableOpacity
@@ -22,6 +24,7 @@ export default function ThemedButton({
 				borderRadius: 40,
 				alignItems: "center",
 			}}
+			className={`py-3 rounded-3xl text-center ${type === "primary" ? "bg-primary-surface-default" : "bg-grayscale-surface-default"} rounded-lg`}
 		>
 			{isLoading ? (
 				<ActivityIndicator size="large" color="#FFFFFF" />
