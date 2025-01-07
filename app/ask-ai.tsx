@@ -1,14 +1,18 @@
 import HeaderBack from "@/components/HeaderBack";
+import ProgressBar from "@/components/ProgressBar";
 import ThemedButton from "@/components/ThemedButton";
 import { type CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import { launchImageLibraryAsync } from "expo-image-picker";
 import { useState } from "react";
+import { set } from "react-hook-form";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
 	const [image, setImage] = useState<string | null>(null);
 	const [facing, setFacing] = useState<CameraType>("back");
 	const [permissionCamera, requestPermissionCamera] = useCameraPermissions();
+	const [step, setStep] = useState(0);
 
 	if (!permissionCamera) {
 		// Camera permissions are still loading.
@@ -44,12 +48,14 @@ export default function App() {
 
 		if (!result.canceled) {
 			setImage(result.assets[0].uri);
+			setStep(Math.min(3 - 1, step + 1));
 		}
 	};
 
 	return (
-		<View style={styles.container} className="w-screen h-screen px-5 py-3">
+		<SafeAreaView style={styles.container} className="px-5 py-3 bg-white">
 			<HeaderBack />
+			<ProgressBar length={3} currentStep={step} className="pb-5 pt-7" />
 			<Text className="title-50 text-grayscale-text-title ">Add image.</Text>
 			<Text className="pt-1 pb-5 body-10 text-grayscale-text-caption">
 				Add a clear picture of the part of your body that is in pain.
@@ -71,7 +77,7 @@ export default function App() {
 			) : (
 				<ThemedButton>Continue</ThemedButton>
 			)}
-		</View>
+		</SafeAreaView>
 	);
 }
 
