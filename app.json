@@ -48,6 +48,12 @@
 				{
 					"cameraPermission": "Allow Evia Apps to access your camera"
 				}
+			],
+			[
+				"expo-image-picker",
+				{
+					"photoPermission": "Allow Evia Apps to access your photos"
+				}
 			]
 		],
 		"experiments": {

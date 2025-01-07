@@ -1,10 +1,12 @@
 import HeaderBack from "@/components/HeaderBack";
 import ThemedButton from "@/components/ThemedButton";
 import { type CameraType, CameraView, useCameraPermissions } from "expo-camera";
+import { launchImageLibraryAsync } from "expo-image-picker";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function App() {
+	const [image, setImage] = useState<string | null>(null);
 	const [facing, setFacing] = useState<CameraType>("back");
 	const [permissionCamera, requestPermissionCamera] = useCameraPermissions();
 
@@ -34,6 +36,17 @@ export default function App() {
 		setFacing((current) => (current === "back" ? "front" : "back"));
 	}
 
+	const pickImage = async () => {
+		let result = await launchImageLibraryAsync({
+			mediaTypes: "images",
+			allowsEditing: true,
+		});
+
+		if (!result.canceled) {
+			setImage(result.assets[0].uri);
+		}
+	};
+
 	return (
 		<View style={styles.container} className="w-screen h-screen px-5 py-3">
 			<HeaderBack />
@@ -41,13 +54,23 @@ export default function App() {
 			<Text className="pt-1 pb-5 body-10 text-grayscale-text-caption">
 				Add a clear picture of the part of your body that is in pain.
 			</Text>
-			<CameraView style={styles.camera} facing={facing} />
-			<View className="flex flex-row justify-between pt-5">
-				<ThemedButton type="secondary">Upload a file</ThemedButton>
-				<TouchableOpacity>
-					<Image source={require("@/assets/images/shutter-button.png")} />
-				</TouchableOpacity>
-			</View>
+			{image === null ? (
+				<CameraView style={styles.camera} facing={facing} />
+			) : (
+				<Image source={{ uri: image }} style={styles.image} />
+			)}
+			{image === null ? (
+				<View className="flex flex-row justify-between pt-5">
+					<ThemedButton type="secondary" onPress={pickImage}>
+						Upload a file
+					</ThemedButton>
+					<TouchableOpacity>
+						<Image source={require("@/assets/images/shutter-button.png")} />
+					</TouchableOpacity>
+				</View>
+			) : (
+				<ThemedButton>Continue</ThemedButton>
+			)}
 		</View>
 	);
 }
@@ -60,5 +83,8 @@ const styles = StyleSheet.create({
 	camera: {
 		flex: 1,
 		borderRadius: "1.5rem",
+	},
+	image: {
+		flex: 1,
 	},
 });
