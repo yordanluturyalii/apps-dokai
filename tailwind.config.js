@@ -8,7 +8,7 @@ module.exports = {
 				grayscale: {
 					surface: {
 						"default-subtle": "#F2F3F7",
-						default: "#D9D9D9",
+						default: "#FFFFFF",
 						disable: "#F2F2F2",
 					},
 					border: {
