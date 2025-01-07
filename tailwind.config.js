@@ -9,6 +9,7 @@ module.exports = {
 					surface: {
 						"default-subtle": "#F2F3F7",
 						default: "#FFFFFF",
+						"default-light": "#E9EAF1",
 						disable: "#F2F2F2",
 					},
 					border: {
