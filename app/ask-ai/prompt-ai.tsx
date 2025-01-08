@@ -1,14 +1,16 @@
 import ProgressBar from "@/components/ProgressBar";
 import ThemedButton from "@/components/ThemedButton";
+import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TextInput, View } from "react-native";
+import { Text, TextInput } from "react-native";
 
 export default function PromptAIzScreen() {
 	const [value, setValue] = useState("");
+	const router = useRouter();
 
 	return (
 		<>
-			<ProgressBar length={3} currentStep={2} className="pb-5 pt-7" />
+			<ProgressBar length={3} currentStep={2} className="pb-5" />
 			<Text className="title-50 text-grayscale-text-title">
 				Pain complaint.
 			</Text>
@@ -30,7 +32,14 @@ export default function PromptAIzScreen() {
 			>
 				Language Simplifier
 			</ThemedButton>
-			<ThemedButton disabled={value === ""}>Continue</ThemedButton>
+			<ThemedButton
+				disabled={value === ""}
+				onPress={() => {
+					router.replace("/ask-ai/result");
+				}}
+			>
+				Continue
+			</ThemedButton>
 		</>
 	);
 }

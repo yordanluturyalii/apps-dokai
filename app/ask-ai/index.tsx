@@ -54,8 +54,8 @@ export default function PhotoAIScreen() {
 
 	return (
 		<>
-			<ProgressBar length={3} currentStep={step} className="pb-5 pt-7" />
-			<Text className="title-50 text-grayscale-text-title ">Add image.</Text>
+			<ProgressBar length={3} currentStep={step} className="pb-5" />
+			<Text className="title-50 text-grayscale-text-title">Add image.</Text>
 			<Text className="pt-1 pb-5 body-10 text-grayscale-text-caption">
 				Add a clear picture of the part of your body that is in pain.
 			</Text>
