@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 export default function HomeScreen() {
 	return (
-		<View>
+		<View className="mt-10">
 			<Link href="/(auth)/login">Login</Link>
 			<Link href="/(auth)/register">Register</Link>
 			<Link href="/(auth)/forgot-password">Forget Password</Link>

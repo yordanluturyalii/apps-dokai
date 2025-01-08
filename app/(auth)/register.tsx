@@ -4,12 +4,14 @@ import HeaderBack from "@/components/HeaderBack";
 import RequiredText from "@/components/RequiredText";
 import ThemedButton from "@/components/ThemedButton";
 import { AccountRequiredText } from "@/constants";
+import { useApi } from "@/hooks/useApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { Text, TouchableOpacity, View } from "react-native";
 import { object, string } from "zod";
+import * as SecureStore from 'expo-secure-store';
 
 const numberRegex = /[0-9]/;
 const alphabetRegex = /[A-Z]/;
@@ -35,9 +37,20 @@ type FormData = {
 	password_confirmation: string;
 };
 
+type RegisterResponse = {
+	message: string;
+	data: {
+		id: number;
+		email: string;
+		token: string;
+	} | null;
+	errors: any | null;
+};
+
 export default function RegisterScreen() {
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const { data, error, isLoading: isLoadingData, fetchData } = useApi<RegisterResponse>();
 	const {
 		control,
 		handleSubmit,
@@ -48,15 +61,20 @@ export default function RegisterScreen() {
 		mode: "onChange",
 	});
 
-	const onSubmit = (data: FormData) => {
-		try {
-			setIsLoading(true);
-			setTimeout(() => {
-				console.log(data);
-			}, 1000);
-		} finally {
-			setIsLoading(false);
+	const onSubmit = async (formData: FormData) => {
+		fetchData({
+			method: "POST",
+			uri: "/api/auth/register",
+			data: formData,
+		});
+
+		if (error) {
+			console.log(error);
+			return;
 		}
+
+		await SecureStore.setItemAsync("token", data?.data?.token ?? "");
+		router.push("/");
 	};
 
 	const password = watch("password");
@@ -71,6 +89,13 @@ export default function RegisterScreen() {
 			<Text className="mt-6 text-xl font-semibold mb-11">
 				Create an Evia account.
 			</Text>
+			{error && (
+				<View className="mt-11 mb-5">
+					<Text className="text-xs text-center text-error-text-link bg-error-surface-default-subtle rounded-lg py-3 px-4 w-fit mx-auto border border-error-border-default">
+						{error ?? "Error"}
+					</Text>
+				</View>
+			)}
 			<Controller
 				control={control}
 				name="email"
