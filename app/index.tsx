@@ -15,6 +15,7 @@ export default function HomeScreen() {
 			<Link href="/ask-ai/prompt-ai">Prompt AI</Link>
 			<Link href="/ask-ai/result">Result AI</Link>
 			<Link href="/+not-found">Not Found</Link>
+			<Link href="/ask-ai/check">Test Page</Link>
 		</View>
 	);
 }
