@@ -1,12 +1,34 @@
 import ProgressBar from "@/components/ProgressBar";
 import ThemedButton from "@/components/ThemedButton";
+import { useApi } from "@/hooks/useApi";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Text, TextInput } from "react-native";
 
-export default function PromptAIzScreen() {
-	const [value, setValue] = useState("");
+//! API Endpoint still cannot be used
+interface SimplifyResponse {
+	message: string;
+	data: {
+		complaint: string;
+		simplified_message: string;
+	};
+	errors: string | null;
+}
+
+export default function PromptAIScreen() {
+	const [message, setMessage] = useState("");
 	const router = useRouter();
+	const { data, error, isLoading, fetchData } = useApi<SimplifyResponse>();
+	const simplifiedText = async () => {
+		await fetchData({
+			method: "POST",
+			uri: "/api/simplify",
+			data: { message },
+		});
+		if (data) {
+			setMessage(data.data.complaint);
+		}
+	};
 
 	return (
 		<>
@@ -20,8 +42,8 @@ export default function PromptAIzScreen() {
 			<TextInput
 				placeholder="Type here..."
 				className="flex-1 py-6 border-t border-grayscale-border-default"
-				onChangeText={(value) => {
-					setValue(value);
+				onChangeText={(message) => {
+					setMessage(message);
 				}}
 				multiline={true}
 				textAlignVertical="top"
@@ -29,13 +51,16 @@ export default function PromptAIzScreen() {
 			<ThemedButton
 				className="flex items-end self-end my-5 shadow-lg w-fit"
 				type="secondary"
+				onPress={simplifiedText}
+				isLoading={isLoading}
+				disabled={message === ""}
 			>
 				Language Simplifier
 			</ThemedButton>
 			<ThemedButton
-				disabled={value === ""}
+				disabled={message === ""}
 				onPress={() => {
-					router.replace("/ask-ai/result");
+					router.replace("/ask-ai/(tabs)/overview");
 				}}
 			>
 				Continue
