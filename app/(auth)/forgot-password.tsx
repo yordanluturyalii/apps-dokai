@@ -3,6 +3,7 @@ import FormInput from "@/components/FormInput";
 import HeaderBack from "@/components/HeaderBack";
 import ThemedButton from "@/components/ThemedButton";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Text, TouchableOpacity } from "react-native";
@@ -37,11 +38,16 @@ const ForgotPasswordScreen = () => {
 			setIsLoading(false);
 		}
 	};
+	const route = useRouter();
 
 	return (
 		<>
-			<HeaderBack />
-			<Text className="text-2xl font-semibold text-[#111111] mt-7">
+			<HeaderBack
+				handleNavigation={() => {
+					route.back();
+				}}
+			/>
+			<Text className="text-2xl font-semibold text-[#111111]">
 				Enter your email and we'll send you a code to verify your email.
 			</Text>
 			<Controller

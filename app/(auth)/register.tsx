@@ -64,11 +64,16 @@ export default function RegisterScreen() {
 	const isLengthValid = password?.length >= 8;
 	const containsNumber = numberRegex.test(password || "");
 	const containsUpperCase = alphabetRegex.test(password || "");
+	const route = useRouter();
 
 	return (
 		<View>
-			<HeaderBack />
-			<Text className="mt-6 text-xl font-semibold mb-11">
+			<HeaderBack
+				handleNavigation={() => {
+					route.back();
+				}}
+			/>
+			<Text className="text-xl font-semibold mb-11">
 				Create an Evia account.
 			</Text>
 			<Controller

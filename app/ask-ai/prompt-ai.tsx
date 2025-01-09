@@ -1,3 +1,4 @@
+import HeaderBack from "@/components/HeaderBack";
 import ProgressBar from "@/components/ProgressBar";
 import ThemedButton from "@/components/ThemedButton";
 import { useApi } from "@/hooks/useApi";
@@ -29,9 +30,11 @@ export default function PromptAIScreen() {
 			setMessage(data.data.complaint);
 		}
 	};
+	const route = useRouter();
 
 	return (
 		<>
+			<HeaderBack handleNavigation={() => route.back()} />
 			<ProgressBar length={3} currentStep={2} className="pb-5" />
 			<Text className="title-50 text-grayscale-text-title">
 				Pain complaint.
