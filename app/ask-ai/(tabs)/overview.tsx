@@ -1,7 +1,7 @@
 import Accordion from "@/components/Accordion";
 import { Text, View } from "react-native";
 
-export default function AIResultScreen() {
+export default function AIOverviewScreen() {
 	return (
 		<View>
 			<Text className="title-50 text-grayscale-text-title">Autoimmune</Text>
@@ -9,6 +9,7 @@ export default function AIResultScreen() {
 				Here is the complete result of the diagnosis provided by Evia based on
 				the information you shared.
 			</Text>
+
 			<View className="space-y-3">
 				<Accordion
 					title="Lupus"
