@@ -25,7 +25,11 @@
         "foregroundImage": "./assets/images/dokai-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.eviaapps"
+      "package": "com.anonymous.eviaapps",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -54,11 +58,18 @@
         {
           "photoPermission": "Allow Evia Apps to access your photos"
         }
-      ],
-      "expo-secure-store"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "65755089-238a-46ec-87c6-94ab2904e954"
+      }
     }
   }
 }

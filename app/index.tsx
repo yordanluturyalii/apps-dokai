@@ -11,7 +11,10 @@ export default function HomeScreen() {
 			<Link href="/(auth)/new-password/password-changed">
 				New Password - success
 			</Link>
-			<Link href="/ask-ai">Ask AI</Link>
+			<Link href="/ask-ai">Photo AI</Link>
+			<Link href="/ask-ai/prompt-ai">Prompt AI</Link>
+			<Link href="/ask-ai/(tabs)/overview">Result AI</Link>
+			<Link href="/ask-ai/(tabs)/care-connect">Care Connect</Link>
 			<Link href="/+not-found">Not Found</Link>
 		</View>
 	);

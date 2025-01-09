@@ -3,7 +3,7 @@ import ThemedButton from "@/components/ThemedButton";
 import { type CameraType, CameraView, useCameraPermissions } from "expo-camera";
 import { launchImageLibraryAsync } from "expo-image-picker";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function PhotoAIScreen() {
@@ -11,11 +11,11 @@ export default function PhotoAIScreen() {
 	const [facing, setFacing] = useState<CameraType>("back");
 	const [permissionCamera, requestPermissionCamera] = useCameraPermissions();
 	const [step, setStep] = useState(0);
+	const cameraRef = useRef(null);
 
 	const router = useRouter();
 
 	if (!permissionCamera) {
-		// Camera permissions are still loading.
 		return <View />;
 	}
 
@@ -40,6 +40,18 @@ export default function PhotoAIScreen() {
 		setFacing((current) => (current === "back" ? "front" : "back"));
 	}
 
+	const takePhoto = async () => {
+		if (cameraRef.current) {
+			try {
+				const photo = await cameraRef.current.takePictureAsync();
+				setImage(photo.uri);
+				setStep(Math.min(3 - 1, step + 1));
+			} catch (error) {
+				console.error("Failed to take picture:", error);
+			}
+		}
+	};
+
 	const pickImage = async () => {
 		const result = await launchImageLibraryAsync({
 			mediaTypes: "images",
@@ -54,13 +66,13 @@ export default function PhotoAIScreen() {
 
 	return (
 		<>
-			<ProgressBar length={3} currentStep={step} className="pb-5 pt-7" />
-			<Text className="title-50 text-grayscale-text-title ">Add image.</Text>
+			<ProgressBar length={3} currentStep={step} className="pb-5" />
+			<Text className="title-50 text-grayscale-text-title">Add image.</Text>
 			<Text className="pt-1 pb-5 body-10 text-grayscale-text-caption">
 				Add a clear picture of the part of your body that is in pain.
 			</Text>
 			{image === null ? (
-				<CameraView style={styles.camera} facing={facing} />
+				<CameraView style={styles.camera} facing={facing} ref={cameraRef} />
 			) : (
 				<Image source={{ uri: image }} style={styles.image} />
 			)}
@@ -69,7 +81,7 @@ export default function PhotoAIScreen() {
 					<ThemedButton type="secondary" onPress={pickImage}>
 						Upload a file
 					</ThemedButton>
-					<TouchableOpacity>
+					<TouchableOpacity onPress={takePhoto}>
 						<Image source={require("@/assets/images/shutter-button.png")} />
 					</TouchableOpacity>
 				</View>
