@@ -12,12 +12,14 @@ type AccordionProps = {
 	title: string;
 	description: string;
 	initiallyExpanded?: boolean;
+	className?: string;
 };
 
 export default function Accordion({
 	title,
 	description,
 	initiallyExpanded = true,
+	className = "",
 }: AccordionProps) {
 	const [isExpanded, setIsExpanded] = useState(initiallyExpanded);
 	const [rotateAnimation] = useState(new Animated.Value(0));
@@ -40,7 +42,9 @@ export default function Accordion({
 	});
 
 	return (
-		<View className="p-5 bg-primary-surface-default-subtle rounded-3xl">
+		<View
+			className={`p-5 mb-3 bg-primary-surface-default-subtle rounded-3xl ${className}`}
+		>
 			<TouchableOpacity
 				onPress={toggleAccordion}
 				className="flex-row items-center justify-between"

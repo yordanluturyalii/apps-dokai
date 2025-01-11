@@ -1,21 +1,40 @@
 import Accordion from "@/components/Accordion";
-import { Text, View } from "react-native";
+import { useApi } from "@/hooks/useApi";
+import { ScrollView, View } from "react-native";
 
 export default function AIOverviewScreen() {
-	return (
-		<View>
-			<Text className="title-50 text-grayscale-text-title">Autoimmune</Text>
-			<Text className="pt-1 pb-5 body-10 text-grayscale-text-caption">
-				Here is the complete result of the diagnosis provided by Evia based on
-				the information you shared.
-			</Text>
+	const { data, error, fetchData, isLoading } = useApi();
 
-			<View className="space-y-3">
-				<Accordion
-					title="Lupus"
-					description="Lupus is a systemic autoimmune disease that occurs when your body's immune system attacks your own tissues and organs. Inflammation caused by lupus can affect many different body systems — including your joints, skin, kidneys, blood cells, brain, heart and lungs."
-				/>
-			</View>
-		</View>
+	return (
+		<ScrollView className="bg-white">
+			<Accordion
+				title="Condition Identified"
+				description="Based on the symptoms described and the provided image, it is possible that you are experiencing a condition related to autoimmune skin diseases. Common conditions with similar symptoms include eczema (atopic dermatitis), psoriasis, or urticarial vasculitis."
+			/>
+			<Accordion
+				title="Potential Causes"
+				description="Autoimmune Response: The immune system may mistakenly attack healthy skin cells.
+					Triggers: Environmental factors, stress, or allergens may exacerbate the condition.
+					Infection Risk: Prolonged scratching could lead to skin breakage and secondary infection."
+			/>
+			<Accordion
+				title="Recommended Actions"
+				description={`Consult a Dermatologist or Rheumatologist:Seek a professional diagnosis to determine if the condition is related to autoimmune skin diseases.
+Topical Treatments:
+Prescription creams or ointments containing corticosteroids or calcinuerin inhibitors may help reduce inflammation and itching.
+Oral Medications:
+If symptoms persist, medications such as antihistamines or immunosuppressants might be necessary under medical supervision.
+Lifestyle Modifications:
+Use fragrance-free, hypoallergenic skin products.
+Keep the affected area moisturized with emollients.
+Avoid hot showers, which can worsen dryness and itching.
+Further Investigation:
+Conduct allergy testing or blood tests to identify potential autoimmune markers.`}
+			/>
+			<Accordion
+				title="Urgency"
+				description="If symptoms worsen or signs of infection (such as pus, fever, or increased redness) appear, seek immediate medical attention."
+			/>
+		</ScrollView>
 	);
 }

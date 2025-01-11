@@ -5,10 +5,11 @@ export const AccountRequiredText = [
 ];
 
 export const Drug = [
-	{ id: 0, category: "Calf", price: "$25", item: "Auto Healix" },
-	{ id: 1, category: "Calf", price: "$25", item: "Auto Healix" },
-	{ id: 2, category: "Calf", price: "$25", item: "Auto Healix" },
-	{ id: 3, category: "Calf", price: "$25", item: "Auto Healix" },
-	{ id: 4, category: "Calf", price: "$25", item: "Auto Healix" },
-	{ id: 5, category: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 0, brand_name: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 1, brand_name: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 2, brand_name: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 3, brand_name: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 4, brand_name: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 5, brand_name: "Calf", price: "$25", item: "Auto Healix" },
+	{ id: 6, brand_name: "Calf", price: "$25", item: "Auto Healix" },
 ];
