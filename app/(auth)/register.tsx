@@ -7,8 +7,8 @@ import { AccountRequiredText } from "@/constants";
 import { useApi } from "@/hooks/useApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { Controller, set, useForm, useWatch } from "react-hook-form";
 import { Text, TouchableOpacity, View } from "react-native";
 import { object, string } from "zod";
 import * as SecureStore from 'expo-secure-store';
@@ -49,8 +49,9 @@ type RegisterResponse = {
 
 export default function RegisterScreen() {
 	const router = useRouter();
-	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const { data, error, isLoading: isLoadingData, fetchData } = useApi<RegisterResponse>();
+	const { data, error, isLoading, fetchData } = useApi<RegisterResponse>();
+	const [isSubmitting, setIsSubmitting] = useState(false);
+
 	const {
 		control,
 		handleSubmit,
@@ -61,10 +62,18 @@ export default function RegisterScreen() {
 		mode: "onChange",
 	});
 
+	useEffect(() => {
+		if (data?.data?.token) {
+			SecureStore.setItemAsync("token", data.data.token);
+			router.push("/");
+		}
+	}, [data]);
+
 	const onSubmit = async (formData: FormData) => {
+		setIsSubmitting(true);
 		fetchData({
 			method: "POST",
-			uri: "/api/auth/register",
+			uri: "/auth/register",
 			data: formData,
 		});
 
@@ -72,9 +81,6 @@ export default function RegisterScreen() {
 			console.log(error);
 			return;
 		}
-
-		await SecureStore.setItemAsync("token", data?.data?.token ?? "");
-		router.push("/");
 	};
 
 	const password = watch("password");
@@ -154,8 +160,8 @@ export default function RegisterScreen() {
 			</View>
 
 			<ThemedButton
-				disabled={!isValid || isLoading}
-				isLoading={isLoading}
+				disabled={!isValid}
+				isLoading={isLoading || isSubmitting}
 				onPress={handleSubmit(onSubmit)}
 			>
 				Create an Account
