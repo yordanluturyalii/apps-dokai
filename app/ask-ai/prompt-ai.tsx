@@ -2,9 +2,10 @@ import HeaderBack from "@/components/HeaderBack";
 import ProgressBar from "@/components/ProgressBar";
 import ThemedButton from "@/components/ThemedButton";
 import { useApi } from "@/hooks/useApi";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TextInput } from "react-native";
+import { Text, TextInput, View } from "react-native";
+import EviaIcon from "@/assets/images/dokai-icon.svg";
 
 //! API Endpoint still cannot be used
 interface SimplifyResponse {
@@ -30,11 +31,10 @@ export default function PromptAIScreen() {
 			setMessage(data.data.complaint);
 		}
 	};
-	const route = useRouter();
 
 	return (
 		<>
-			<HeaderBack handleNavigation={() => route.back()} />
+			<HeaderBack handleNavigation={() => router.back()} />
 			<ProgressBar length={3} currentStep={2} className="pb-5" />
 			<Text className="title-50 text-grayscale-text-title">
 				Pain complaint.
@@ -58,7 +58,14 @@ export default function PromptAIScreen() {
 				isLoading={isLoading}
 				disabled={message === ""}
 			>
-				Language Simplifier
+				<View className="flex-row items-center gap-x-2">
+					<EviaIcon width={20} height={20} />
+					<Text
+						className={`${message === "" ? "text-grayscale-text-disable" : "text-grayscale-text-title"}`}
+					>
+						Language Simplifier
+					</Text>
+				</View>
 			</ThemedButton>
 			<ThemedButton
 				disabled={message === ""}

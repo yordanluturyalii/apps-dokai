@@ -77,13 +77,14 @@ export default function PhotoAIScreen() {
 				<Image source={{ uri: image }} style={styles.image} />
 			)}
 			{image === null ? (
-				<View className="flex flex-row justify-between pt-5">
-					<ThemedButton type="secondary" onPress={pickImage}>
+				<View className="flex flex-row justify-between pt-5 gap-x-11">
+					<ThemedButton type="secondary" onPress={pickImage} className="flex-1">
 						Upload a file
 					</ThemedButton>
 					<TouchableOpacity onPress={takePhoto}>
 						<Image source={require("@/assets/images/shutter-button.png")} />
 					</TouchableOpacity>
+					<View className="flex-1" />
 				</View>
 			) : (
 				<ThemedButton onPress={() => router.push("/ask-ai/prompt-ai")}>
