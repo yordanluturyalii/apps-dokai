@@ -2,6 +2,8 @@ import axios, {
 	type AxiosInstance,
 	type AxiosError,
 	type AxiosResponse,
+	AxiosRequestHeaders,
+	RawAxiosRequestHeaders,
 } from "axios";
 import { useEffect, useState } from "react";
 
@@ -10,6 +12,7 @@ type FetchDataParams = {
 	method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
 	data?: Record<string, unknown>;
 	params?: Record<string, unknown>;
+	headers?: RawAxiosRequestHeaders;
 };
 
 type UseApiReturn<T> = {
@@ -25,15 +28,11 @@ export const useApi = <T = unknown>(): UseApiReturn<T> => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const axiosInstance: AxiosInstance = axios.create({
-		baseURL: "https://staging-dinacom.akmalmuhammadp.my.id/api",
+		baseURL: "http://192.168.100.78:3000/api",
 		timeout: 10000,
 		headers: {
 			"Content-Type": "application/json",
-		},
-		auth: {
-			username: "akmal@gmail.com",
-			password: "12345678",
-		},
+		}
 	});
 
 	axiosInstance.interceptors.request.use(
@@ -65,6 +64,7 @@ export const useApi = <T = unknown>(): UseApiReturn<T> => {
 		method,
 		data = {},
 		params = {},
+		headers,
 	}: FetchDataParams): Promise<void> => {
 		setIsLoading(true);
 
@@ -78,6 +78,10 @@ export const useApi = <T = unknown>(): UseApiReturn<T> => {
 				data: data,
 				params: params,
 				signal: controller.signal,
+				headers: {
+					...axiosInstance.defaults.headers.common,
+					...headers,
+				},
 			});
 			setData(result.data);
 			setError(null);
