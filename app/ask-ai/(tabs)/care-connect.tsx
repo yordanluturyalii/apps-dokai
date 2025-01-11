@@ -35,7 +35,7 @@ export default function CareConnectScreen() {
 	};
 
 	return (
-		<ScrollView className="p-4 bg-white">
+		<ScrollView className="bg-white">
 			<Text className="pb-4 title-30 text-grayscale-text-title">
 				Drug recommendations
 			</Text>

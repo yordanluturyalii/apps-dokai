@@ -1,7 +1,11 @@
 import HeaderBack from "@/components/HeaderBack";
-import { Tabs } from "expo-router";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useRouter } from "expo-router";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
+import CareConnectScreen from "./care-connect";
+import OverviewScreen from "./overview";
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function TabLayout() {
 	const route = useRouter();
@@ -17,19 +21,57 @@ export default function TabLayout() {
 				Here is the complete result of the diagnosis provided by Evia based on
 				the information you shared.
 			</Text>
-			<Tabs
+			<Tab.Navigator
 				screenOptions={{
-					tabBarPosition: "top",
-					tabBarActiveBackgroundColor: "#FFFFFF",
-					tabBarInactiveBackgroundColor: "#FAFAFA",
 					tabBarActiveTintColor: "#191B29",
-					tabBarIcon: ({ focused, color, size }) => null,
-					animation: "shift",
+					tabBarInactiveTintColor: "#A4A7C6",
+					animationEnabled: true,
+					tabBarPressColor: "#F7F7FC",
+					tabBarIndicatorStyle: {
+						backgroundColor: "#FFFFFF",
+						height: "80%",
+						borderRadius: 40,
+						marginBottom: "10%",
+					},
+					tabBarStyle: {
+						backgroundColor: "#F7F7FC",
+						borderRadius: 40,
+						marginBottom: 20,
+						elevation: 0,
+					},
 				}}
 			>
-				<Tabs.Screen name="overview" options={{ title: "Overview" }} />
-				<Tabs.Screen name="care-connect" options={{ title: "CareConnect" }} />
-			</Tabs>
+				<Tab.Screen
+					name="Overview"
+					component={OverviewScreen}
+					options={{
+						tabBarLabel: ({ focused }) => (
+							<Text
+								style={{
+									color: focused ? "#191B29" : "#A4A7C6",
+								}}
+							>
+								Overview
+							</Text>
+						),
+					}}
+				/>
+				<Tab.Screen
+					name="CareConnect"
+					component={CareConnectScreen}
+					options={{
+						tabBarLabel: ({ focused }) => (
+							<Text
+								style={{
+									color: focused ? "#191B29" : "#A4A7C6",
+								}}
+							>
+								CareConnect
+							</Text>
+						),
+					}}
+				/>
+			</Tab.Navigator>
 		</>
 	);
 }
