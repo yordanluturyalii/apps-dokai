@@ -21,7 +21,7 @@ module.exports = {
 						body: "#333652",
 						subtitle: "#656B9F",
 						caption: "#A4A7C6",
-						negative: "#D9D9D9",
+						negative: "#FFFFFF",
 						disable: "#BFBFBF",
 					},
 				},

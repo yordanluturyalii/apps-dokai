@@ -3,7 +3,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
 	return (
-		<SafeAreaView>
+		<SafeAreaView className="gap-y-3">
 			<Link href="/(auth)/login">Login</Link>
 			<Link href="/(auth)/register">Register</Link>
 			<Link href="/(auth)/forgot-password">Forget Password</Link>
@@ -16,6 +16,7 @@ export default function HomeScreen() {
 			<Link href="/ask-ai/prompt-ai">Prompt AI</Link>
 			<Link href="/ask-ai/(tabs)/overview">Result AI</Link>
 			<Link href="/ask-ai/(tabs)/care-connect">Care Connect</Link>
+			<Link href="/ask-ai/product-detail">Product Detail</Link>
 			<Link href="/+not-found">Not Found</Link>
 		</SafeAreaView>
 	);

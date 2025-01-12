@@ -1,10 +1,11 @@
 import Card from "@/components/Card";
 import { Drug } from "@/constants";
 import { useApi } from "@/hooks/useApi";
+import { useRouter } from "expo-router";
 import { ScrollView, Text, View } from "react-native";
 
 interface CareConnectScreenResponse {
-	messaage: string;
+	message: string;
 	data: {
 		id: number;
 		brand_name: string;
@@ -22,7 +23,6 @@ export default function CareConnectScreen() {
 		await fetchData({
 			method: "GET",
 			uri: "/complaints/c118559b-b734-43fa-a0de-4b6943976333/recommendations",
-			data: {},
 		});
 	};
 
@@ -33,6 +33,8 @@ export default function CareConnectScreen() {
 		}
 		return rows;
 	};
+
+	const route = useRouter();
 
 	return (
 		<ScrollView className="bg-white">
@@ -50,6 +52,17 @@ export default function CareConnectScreen() {
 								item={card.item}
 								price={card.price}
 								className="w-[48%]"
+								href={() =>
+									route.navigate({
+										pathname: "/ask-ai/product-detail",
+										params: {
+											id: card.id,
+											price: card.price,
+											brand_name: card.brand_name,
+											item: card.item,
+										},
+									})
+								}
 							/>
 						))}
 						{row.length === 1 && <View className="w-[48%]" />}

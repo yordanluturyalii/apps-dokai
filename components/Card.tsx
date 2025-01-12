@@ -6,15 +6,25 @@ export default function Card({
 	price,
 	item,
 	className,
-}: { brand_name: string; price: string; item: string; className?: string }) {
+	href,
+}: {
+	brand_name: string;
+	price: string;
+	item: string;
+	className?: string;
+	href: () => void;
+}) {
 	return (
 		<View
 			className={`p-3 rounded-3xl bg-grayscale-surface-default-subtle ${className}`}
 		>
-			<Image
-				source={require("@/assets/images/dokai-icon.svg")}
-				className="object-contain w-36 h-36"
-			/>
+			<View className="flex-row justify-center w-full">
+				<Image
+					source={require("@/assets/images/product-constant.png")}
+					width={144}
+					height={10}
+				/>
+			</View>
 			<View className="flex-row justify-between w-full">
 				<Text className="text-grayscale-text-caption subtitle-10">
 					{brand_name}
@@ -22,7 +32,7 @@ export default function Card({
 				<Text className="title-20 text-grayscale-text-title">{price}</Text>
 			</View>
 			<Text className="text-grayscale-text-title subtitle-20">{item}</Text>
-			<ThemedButton>Buy</ThemedButton>
+			<ThemedButton onPress={href}>Buy</ThemedButton>
 		</View>
 	);
 }
