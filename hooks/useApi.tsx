@@ -28,7 +28,7 @@ export const useApi = <T = unknown>(): UseApiReturn<T> => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
 	const axiosInstance: AxiosInstance = axios.create({
-		baseURL: "http://192.168.100.78:3000/api",
+		baseURL: "https://staging-dinacom.akmalmuhammadp.my.id/api",
 		timeout: 10000,
 		headers: {
 			"Content-Type": "application/json",
