@@ -60,7 +60,7 @@ export default function PromptAIScreen() {
 	const simplifiedText = async () => {	
 		await fetchData({
 			method: "POST",
-			uri: "/ai/simplify",
+			uri: "/complaints/simplify",
 			data: { message },
 			headers: {
 				Authorization: token,
