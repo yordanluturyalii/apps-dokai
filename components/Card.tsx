@@ -9,7 +9,7 @@ export default function Card({
 	href,
 }: {
 	brand_name: string;
-	price: string;
+	price: number;
 	item: string;
 	className?: string;
 	href: () => void;

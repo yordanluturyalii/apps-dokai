@@ -3,26 +3,21 @@ import { useApi } from "@/hooks/useApi";
 import { useEffect } from "react";
 import { ScrollView } from "react-native";
 
-interface AIOverviewScreenResponse {
-	message: string;
-	data: {
-		complaint_id: string;
-		title: string;
-		response: {
-			suggested_title: string;
-			condition_identified: string;
-			potential_causes: string;
-			recommended_actions: string;
-			urgency: string;
-		};
-		image_url: string;
-	} | null;
-	errors: null | string;
+interface ComplaintResponse {
+	complaint_id: string;
+	title: string;
+	response: {
+		suggested_title: string;
+		condition_identified: string;
+		potential_causes: string;
+		recommended_actions: string;
+		urgency: string;
+	};
+	image_url: string;
 }
 
 export default function AIOverviewScreen() {
-	const { data, error, fetchData, isLoading } =
-		useApi<AIOverviewScreenResponse>();
+	const { data, error, fetchData, isLoading } = useApi<ComplaintResponse>();
 
 	const handleGetData = async () => {
 		await fetchData({

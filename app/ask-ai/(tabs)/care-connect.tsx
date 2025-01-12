@@ -1,23 +1,21 @@
 import Card from "@/components/Card";
-import { Drug } from "@/constants";
 import { useApi } from "@/hooks/useApi";
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
 import { ScrollView, Text, View } from "react-native";
 
-interface CareConnectScreenResponse {
-	message: string;
-	data: {
-		id: number;
-		brand_name: string;
-		name: string;
-		price: string;
-		image_url: string;
-	};
+interface DrugRecommendationResponse {
+	id: number;
+	brand_name: string;
+	name: string;
+	price: number;
+	description: string;
+	image_url: string;
 }
 
 export default function CareConnectScreen() {
 	const { data, error, isLoading, fetchData } =
-		useApi<CareConnectScreenResponse>();
+		useApi<DrugRecommendationResponse[]>();
 
 	const getData = async () => {
 		await fetchData({
@@ -26,8 +24,16 @@ export default function CareConnectScreen() {
 		});
 	};
 
-	const createRows = (items: typeof Drug) => {
-		const rows: (typeof Drug)[] = [];
+	useEffect(() => {
+		getData();
+	}, []);
+
+	//? Create Grid Rows for Card
+	const createRows = (items: DrugRecommendationResponse[] | undefined) => {
+		if (!items) {
+			return [];
+		}
+		const rows: DrugRecommendationResponse[][] = [];
 		for (let i = 0; i < items.length; i += 2) {
 			rows.push(items.slice(i, i + 2));
 		}
@@ -43,31 +49,35 @@ export default function CareConnectScreen() {
 			</Text>
 
 			<View className="flex-col gap-y-4">
-				{createRows(Drug).map((row, rowIndex) => (
-					<View key={`row-${rowIndex}`} className="flex-row justify-between">
-						{row.map((card) => (
-							<Card
-								key={card.id}
-								brand_name={card.brand_name}
-								item={card.item}
-								price={card.price}
-								className="w-[48%]"
-								href={() =>
-									route.navigate({
-										pathname: "/ask-ai/product-detail",
-										params: {
-											id: card.id,
-											price: card.price,
-											brand_name: card.brand_name,
-											item: card.item,
-										},
-									})
-								}
-							/>
-						))}
-						{row.length === 1 && <View className="w-[48%]" />}
-					</View>
-				))}
+				{!isLoading &&
+					data?.data &&
+					createRows(data?.data).map((row) => (
+						<View key={`row-${row[0].id}`} className="flex-row justify-between">
+							{row.map((drug) => (
+								<Card
+									key={drug.id}
+									brand_name={drug.brand_name}
+									item={drug.name}
+									price={drug.price}
+									className="w-[48%]"
+									href={() =>
+										route.push({
+											pathname: "/ask-ai/product-detail",
+											params: {
+												id: drug.id,
+												price: drug.price,
+												brand_name: drug.brand_name,
+												name: drug.name,
+												description: drug.description,
+												image_url: drug.image_url,
+											},
+										})
+									}
+								/>
+							))}
+							{row.length === 1 && <View className="w-[48%]" />}
+						</View>
+					))}
 			</View>
 		</ScrollView>
 	);

@@ -1,9 +1,9 @@
+import type { ApiResponse } from "@/types";
 import axios, {
 	type AxiosInstance,
 	type AxiosError,
 	type AxiosResponse,
-	AxiosRequestHeaders,
-	RawAxiosRequestHeaders,
+	type RawAxiosRequestHeaders,
 } from "axios";
 import { useEffect, useState } from "react";
 
@@ -15,15 +15,18 @@ type FetchDataParams = {
 	headers?: RawAxiosRequestHeaders;
 };
 
-type UseApiReturn<T> = {
-	data: T | null;
+type UseApiReturn<TData, TError> = {
+	data: ApiResponse<TData, TError> | null;
 	error: string | null;
 	isLoading: boolean;
 	fetchData: (args: FetchDataParams) => Promise<void>;
 };
 
-export const useApi = <T = unknown>(): UseApiReturn<T> => {
-	const [data, setData] = useState<T | null>(null);
+export const useApi = <TData = unknown, TError = unknown>(): UseApiReturn<
+	TData,
+	TError
+> => {
+	const [data, setData] = useState<ApiResponse<TData, TError> | null>(null);
 	const [error, setError] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -32,7 +35,7 @@ export const useApi = <T = unknown>(): UseApiReturn<T> => {
 		timeout: 10000,
 		headers: {
 			"Content-Type": "application/json",
-		}
+		},
 	});
 
 	axiosInstance.interceptors.request.use(
@@ -72,20 +75,21 @@ export const useApi = <T = unknown>(): UseApiReturn<T> => {
 		controller = new AbortController();
 
 		try {
-			const result: AxiosResponse<T> = await axiosInstance({
-				url: uri,
-				method: method,
-				data: data,
-				params: params,
-				signal: controller.signal,
-				headers: {
-					...axiosInstance.defaults.headers.common,
-					...headers,
-				},
-			});
+			const result: AxiosResponse<ApiResponse<TData, TError>> =
+				await axiosInstance({
+					url: uri,
+					method: method,
+					data: data,
+					params: params,
+					signal: controller.signal,
+					headers: {
+						...axiosInstance.defaults.headers.common,
+						...headers,
+					},
+				});
 			setData(result.data);
 			setError(null);
-		} catch (err: unknown) {
+		} catch (err) {
 			if (axios.isCancel(err)) {
 				console.error("Request cancelled", (err as Error).message);
 			} else if (axios.isAxiosError(err)) {
