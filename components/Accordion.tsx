@@ -1,4 +1,4 @@
-import ArrowDown from "@/assets/images/icons/arrow-down.svg";
+import ArrowUp from "@/assets/images/icons/arrow-up.svg";
 import { useState } from "react";
 import {
 	Animated,
@@ -11,18 +11,16 @@ import {
 type AccordionProps = {
 	title: string;
 	description: string;
-	initiallyExpanded?: boolean;
 	className?: string;
 };
 
 export default function Accordion({
 	title,
 	description,
-	initiallyExpanded = true,
 	className = "",
 }: AccordionProps) {
-	const [isExpanded, setIsExpanded] = useState(initiallyExpanded);
-	const [rotateAnimation] = useState(new Animated.Value(0));
+	const [isExpanded, setIsExpanded] = useState(true);
+	const [rotateAnimation] = useState(new Animated.Value(1));
 
 	const toggleAccordion = () => {
 		LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -38,7 +36,7 @@ export default function Accordion({
 
 	const arrowRotation = rotateAnimation.interpolate({
 		inputRange: [0, 1],
-		outputRange: ["0deg", "180deg"],
+		outputRange: ["180deg", "0deg"],
 	});
 
 	return (
@@ -51,7 +49,7 @@ export default function Accordion({
 			>
 				<Text className="text-grayscale-text-title link-30">{title}</Text>
 				<Animated.View style={{ transform: [{ rotate: arrowRotation }] }}>
-					<ArrowDown width={20} height={20} />
+					<ArrowUp width={20} height={20} />
 				</Animated.View>
 			</TouchableOpacity>
 			{isExpanded && (

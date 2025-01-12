@@ -20,7 +20,8 @@
 				"noReactSpecificProps": "off"
 			},
 			"correctness": {
-				"useImportExtensions": "off"
+				"useImportExtensions": "off",
+				"useExhaustiveDependencies": "off"
 			}
 		}
 	},
