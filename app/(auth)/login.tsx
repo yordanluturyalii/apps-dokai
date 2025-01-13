@@ -2,13 +2,16 @@ import EviaIcon from "@/assets/images/dokai-icon.svg";
 import GoogleIcon from "@/assets/images/google-icon.svg";
 import FormInput from "@/components/FormInput";
 import ThemedButton from "@/components/ThemedButton";
+import { useApi } from "@/hooks/useApi";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { GoogleSignin } from "@react-native-google-signin/google-signin";
+// import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import { Link } from "expo-router";
 import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Text, TouchableOpacity, View } from "react-native";
 import { object, string } from "zod";
+import * as SecureStore from "expo-secure-store";
+import { useRouter } from "expo-router";
 
 const schema = object({
 	email: string().email(),
@@ -20,8 +23,15 @@ type FormData = {
 	password: string;
 };
 
+interface LoginResponse {
+	id: number;
+	email: string;
+	token: string;
+}
+
 export default function LoginScreen() {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const router = useRouter();
+	const { data, error, isLoading, fetchData } = useApi<LoginResponse>();
 	const {
 		control,
 		handleSubmit,
@@ -31,42 +41,44 @@ export default function LoginScreen() {
 		mode: "onChange",
 	});
 
-	const onSubmit = (data: FormData) => {
-		try {
-			setIsLoading(true);
-			setTimeout(() => {
-				console.log(data);
-			});
-		} finally {
-			setIsLoading(false);
-		}
-	};
-
-	const [user, setUser] = useState(null);
-
 	useEffect(() => {
-		GoogleSignin.configure({
-			scopes: ["profile", "email"],
-		});
-	}, []);
+		console.log(data?.data);
+		if (data?.data) {
+			SecureStore.setItemAsync("token", data.data.token);
+			router.push("/");
+		}
+	}, [data?.data]);
 
-	const signIn = async () => {
-		try {
-			await GoogleSignin.hasPlayServices();
-			const { idToken } = await GoogleSignin.signIn();
-			const response = await fetch("https://example.com", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({ idToken }),
-			});
-			const data = await response.json();
-			setUser(data);
-		} catch (error) {
-			console.error(error);
+	const onSubmit = async (formData: FormData) => {
+		await fetchData({
+			method: "POST",
+			uri: "/auth/login",
+			data: formData,
+		});
+
+		if (error) {
+			console.log(error);
+			return;
 		}
 	};
+
+	// const [user, setUser] = useState(null);
+
+	// useEffect(() => {
+	// 	GoogleSignin.configure({
+	// 		scopes: ["profile", "email"],
+	// 	});
+	// }, []);
+
+	// const signIn = async () => {
+	// 	try {
+	// 		await GoogleSignin.hasPlayServices();
+	// 		const response = await GoogleSignin.signIn();
+	// 		console.log(response);
+	// 	} catch (error) {
+	// 		console.error(error);
+	// 	}
+	// };
 
 	return (
 		<View>
