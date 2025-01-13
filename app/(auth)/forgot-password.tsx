@@ -2,11 +2,12 @@ import ArrowLeft from "@/assets/images/icons/arrow-left.svg";
 import FormInput from "@/components/FormInput";
 import HeaderBack from "@/components/HeaderBack";
 import ThemedButton from "@/components/ThemedButton";
+import { useApi } from "@/hooks/useApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Text, TouchableOpacity } from "react-native";
+import { Text } from "react-native";
 import { object, string } from "zod";
 
 const schema = object({
@@ -18,7 +19,6 @@ type FormData = {
 };
 
 const ForgotPasswordScreen = () => {
-	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const {
 		control,
 		handleSubmit,
@@ -27,18 +27,27 @@ const ForgotPasswordScreen = () => {
 		resolver: zodResolver(schema),
 		mode: "onChange",
 	});
+	const route = useRouter();
+	const { data, error, isLoading, fetchData } = useApi();
 
-	const onSubmit = (data: FormData) => {
-		try {
-			setIsLoading(true);
-			setTimeout(() => {
-				console.log(data);
-			}, 1000);
-		} finally {
-			setIsLoading(false);
+	useEffect(() => {
+		if (data) {
+			route.push("/verify-token");
+		}
+	}, [data]);
+
+	const onSubmit = async (formData: FormData) => {
+		await fetchData({
+			method: "POST",
+			uri: "/auth/forget/password",
+			data: formData,
+		});
+
+		if (error) {
+			console.log(error);
+			return;
 		}
 	};
-	const route = useRouter();
 
 	return (
 		<>
