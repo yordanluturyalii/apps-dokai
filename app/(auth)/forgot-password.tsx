@@ -5,7 +5,7 @@ import ThemedButton from "@/components/ThemedButton";
 import { useApi } from "@/hooks/useApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Text } from "react-native";
 import { object, string } from "zod";
@@ -29,14 +29,18 @@ const ForgotPasswordScreen = () => {
 	});
 	const route = useRouter();
 	const { data, error, isLoading, fetchData } = useApi();
+	const [email, setEmail] = useState("");
 
 	useEffect(() => {
 		if (data) {
-			route.push("/verify-token");
+			route.push({pathname: "/verify-token", params: {
+				email: email
+			}});
 		}
 	}, [data]);
 
 	const onSubmit = async (formData: FormData) => {
+		setEmail(formData.email);
 		await fetchData({
 			method: "POST",
 			uri: "/auth/forget/password",
