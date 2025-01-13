@@ -96,6 +96,13 @@ export default function LoginScreen() {
 				<Text className="text-sm font-semibold">Login with Google</Text>
 			</TouchableOpacity>
 			<View className="h-[1px] w-full bg-[#EBEBEB] my-5" />
+			{error && (
+				<View className="mb-5">
+					<Text className="text-xs text-center text-error-text-link bg-error-surface-default-subtle rounded-lg py-3 px-4 w-fit mx-auto border border-error-border-default">
+						{"Incorrect Email or Password"}
+					</Text>
+				</View>
+			)}
 			<Controller
 				control={control}
 				name="email"
