@@ -38,13 +38,9 @@ type FormData = {
 };
 
 type RegisterResponse = {
-	message: string;
-	data: {
-		id: number;
-		email: string;
-		token: string;
-	} | null;
-	errors: any | null;
+	id: number;
+	email: string;
+	token: string;
 };
 
 export default function RegisterScreen() {
@@ -63,7 +59,7 @@ export default function RegisterScreen() {
 	});
 
 	useEffect(() => {
-		if (data?.data?.token) {
+		if (data) {
 			SecureStore.setItemAsync("token", data.data.token);
 			router.push("/");
 		}
